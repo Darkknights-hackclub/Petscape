@@ -1,23 +1,29 @@
-import { Button, Navbar, NavbarBrand,Nav,NavItem,Collapse,NavLink,NavbarToggler, Container,Row,Col,Item,Divider,Card,
-    DropdownToggle,
-    DropdownContext, DropdownItem,
-    DropdownMenu } from 'reactstrap';
-import cont from './cont.png';
-import { useState } from "react";
-import ReactDOM from "react-dom";
 import React from 'react';
+import { Button,Row,Col,Card} from 'reactstrap';
+import { useState } from "react";
+import Axios from 'axios';
+
 const Signup = () => {
-    const [inputs, setInputs] = useState({});
 
-  const handleChange = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    setInputs(values => ({...values, [name]: value}))
-  }
+    const [name,setName] = useState('');
+    const [email,setEmail] = useState('');
+    const [phone,setPhone] = useState('');
+    const [DOB,setDOB] = useState('');
+    const [addressL1,setAddressL1] = useState('');
+    const [addressL2,setAddressL2] = useState('');
+    const [city,setCity] = useState('');
+    const [pincode,setPincode] = useState('');
+    const [pgonAdd,setpgonAdd] = useState('');
 
-  const handleSubmit = (event) => {
+    const handleSubmit = (event) => {
+
     event.preventDefault();
-    console.log(inputs);
+    
+    Axios.post('http://localhost:3002/api/insert',{name:name,email:email,phone:phone,
+    DOB:DOB,addressL1:addressL1,addressL2:addressL2,city:city,pincode:pincode,pgonAdd:pgonAdd
+        }).then((response)=>{
+            alert(response);
+        });
   }
     return(
         <Row className='justify-content-center' style={{position:"relative",bottom:"10px"}}>
@@ -29,10 +35,8 @@ const Signup = () => {
       <input 
         placeholder='Enter your name'
         type="text" 
-        name="username" 
-        value={inputs.username || ""} 
-        onChange={handleChange}
-      />
+        name="name"  
+        onChange={(e)=>{setName(e.target.value)}} />
       </label>
       </div>
       <br></br>
@@ -41,9 +45,8 @@ const Signup = () => {
         <input 
           placeholder='Enter your Email'
           type="email" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          name="email"  
+          onChange={(e)=>{setEmail(e.target.value)}}
         />
         </label>
       </div>
@@ -52,10 +55,9 @@ const Signup = () => {
       <label>
         <input 
           placeholder='Enter your Phone no'
-          type="email" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          type="text" 
+          name="phone"  
+          onChange={(e)=>{setPhone(e.target.value)}}
         />
         </label>
       </div>
@@ -65,21 +67,8 @@ const Signup = () => {
         <input 
           placeholder='Enter your DOB'
           type="date" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
-        />
-        </label>
-      </div>
-        <br></br>
-        <div>
-      <label>
-        <input 
-          placeholder='Message'
-          type="text" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          name="DOB"  
+          onChange={(e)=>{setDOB(e.target.value)}}
         />
         </label>
       </div>
@@ -88,10 +77,9 @@ const Signup = () => {
       <label>
         <input 
           placeholder='Enter your address 1'
-          type="email" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          type="text" 
+          name="addressl1" 
+          onChange={(e)=>{setAddressL1(e.target.value)}}
         />
         </label>
       </div>
@@ -100,10 +88,9 @@ const Signup = () => {
       <label>
         <input 
           placeholder='Enter your Address 2'
-          type="email" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          type="text" 
+          name="addressL2" 
+          onChange={(e)=>{setAddressL2(e.target.value)}} 
         />
         </label>
       </div>
@@ -112,10 +99,9 @@ const Signup = () => {
       <label>
         <input 
           placeholder='Enter your City'
-          type="email" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          type="city" 
+          name="city" 
+          onChange={(e)=>{setCity(e.target.value)}}
         />
         </label>
       </div>
@@ -124,10 +110,9 @@ const Signup = () => {
       <label>
         <input 
           placeholder='Enter your Pincode'
-          type="email" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          type="text" 
+          name="pincode" 
+          onChange={(e)=>{setPincode(e.target.value)}}
         />
         </label>
       </div>
@@ -135,16 +120,15 @@ const Signup = () => {
         <div>
       <label>
         <input 
-          placeholder='Enter your Meta mask no'
-          type="email" 
-          name="age" 
-          value={inputs.age || ""} 
-          onChange={handleChange}
+          placeholder='Enter your Metamask wallet ID'
+          type="text" 
+          name="pgonAdd" 
+          onChange={(e)=>{setpgonAdd(e.target.value)}}
         />
         </label>
       </div>
         <br></br>
-        <Row className='justify-content-center'><Button>Submit</Button></Row>
+        <input type="submit" />
     </form>
             </Col>
             </Card>
